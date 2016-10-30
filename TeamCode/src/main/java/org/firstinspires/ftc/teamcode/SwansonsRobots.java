@@ -30,15 +30,15 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.Range;
+import java.math.*;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file provides basic Telop driving for a Pushbot robot.
@@ -55,9 +55,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Pushbot: Teleop Tank", group="Pushbot")
-@Disabled
-public class PushbotTeleopTank_Iterative extends OpMode{
+@TeleOp(name="Swanson's Robots", group="Linear Opmode")
+//@Disabled
+public class SwansonsRobots extends OpMode{
 
     /* Declare OpMode members. */
     HardwarePushbot robot       = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
@@ -103,8 +103,18 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         double right;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
+        left = gamepad1.left_stick_y;
+        right = gamepad1.left_stick_y;
+
+        if (Math.abs(gamepad1.left_stick_x) > 0.10) {
+            if (gamepad1.left_stick_x > 0) {
+                right = gamepad1.left_stick_x*0.5;
+                left = -gamepad1.left_stick_x*0.5;
+            } else if (gamepad1.left_stick_x < 0){
+                left = -gamepad1.left_stick_x*0.5;
+                right = gamepad1.left_stick_x*0.5;
+            }
+        }
         robot.leftMotor.setPower(left);
         robot.rightMotor.setPower(right);
 
@@ -119,16 +129,15 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
         robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
 
-        // Use gamepad buttons to move the arm up (Y) and down (A)
         /*
+        // Use gamepad buttons to move the arm up (Y) and down (A)
         if (gamepad1.y)
             robot.armMotor.setPower(robot.ARM_UP_POWER);
         else if (gamepad1.a)
             robot.armMotor.setPower(robot.ARM_DOWN_POWER);
         else
             robot.armMotor.setPower(0.0);
-        */
-
+*/
         // Send telemetry message to signify robot running;
         telemetry.addData("claw",  "Offset = %.2f", clawOffset);
         telemetry.addData("left",  "%.2f", left);
