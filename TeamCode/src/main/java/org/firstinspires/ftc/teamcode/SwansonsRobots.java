@@ -103,7 +103,7 @@ public class SwansonsRobots extends OpMode{
         double left; //double can be a variable and left is -1.0 to +1.0
         double right;
         int integer;
-        
+
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = gamepad1.left_stick_y; // reading value from joystick assigning value to left :)
