@@ -101,6 +101,7 @@ public class SwansonsRobots extends OpMode{
     public void loop() {
         double left;
         double right;
+        int integer;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = gamepad1.left_stick_y;
