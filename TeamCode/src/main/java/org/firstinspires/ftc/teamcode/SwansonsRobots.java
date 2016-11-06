@@ -66,6 +66,7 @@ public class SwansonsRobots extends OpMode{
     final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
 
 
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -99,24 +100,32 @@ public class SwansonsRobots extends OpMode{
      */
     @Override
     public void loop() {
-        double left;
+        double left; //double can be a variable and left is -1.0 to +1.0
         double right;
         int integer;
+        
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        left = gamepad1.left_stick_y;
+        left = gamepad1.left_stick_y; // reading value from joystick assigning value to left :)
         right = gamepad1.left_stick_y;
 
-        if (Math.abs(gamepad1.left_stick_x) > 0.10) {
-            if (gamepad1.left_stick_x > 0) {
+        if (Math.abs(gamepad1.left_stick_x) > 0.10)
+        {
+            if (gamepad1.left_stick_x > 0)
+            {
                 right = gamepad1.left_stick_x*0.5;
                 left = -gamepad1.left_stick_x*0.5;
-            } else if (gamepad1.left_stick_x < 0){
+            }
+            else if (gamepad1.left_stick_x < 0)
+            {
                 left = -gamepad1.left_stick_x*0.5;
                 right = gamepad1.left_stick_x*0.5;
             }
         }
-        robot.leftMotor.setPower(left);
+        //code and data left and right is data storage and ask for it again later
+        //
+
+        robot.leftMotor.setPower(left); //robot.leftMotor.setPower(left) setting power to that value that is left that we determinded above!
         robot.rightMotor.setPower(right);
 
         // Use gamepad left & right Bumpers to open and close the claw
