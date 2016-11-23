@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
@@ -20,6 +19,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class BasicAutonomous extends OpMode {
 
     private double matchStartTime;
+    boolean firstTime = true;
 
     HardwarePushbot robot = new HardwarePushbot();
 
@@ -32,8 +32,8 @@ public class BasicAutonomous extends OpMode {
 //        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        robot.leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        robot.rightMotor.setDirection(DcMotor.Direction.FORWARD);
 
         robot.leftMotor.setPower(0.0);
         robot.rightMotor.setPower(0.0);
@@ -58,8 +58,8 @@ public class BasicAutonomous extends OpMode {
 
         matchStartTime = getRuntime();  // used to decide if we are running more than 10 seconds.
 
-        robot.leftMotor.setPower(0.5);
-        robot.rightMotor.setPower(0.5);
+        robot.leftMotor.setPower(0.0);
+        robot.rightMotor.setPower(0.0);
 
         return;
 
@@ -72,16 +72,29 @@ public class BasicAutonomous extends OpMode {
 
         elapsedTime = getRuntime() - matchStartTime;
 
-        if(elapsedTime > 2.0) {
-            robot.leftMotor.setPower(0.0);
-            robot.rightMotor.setPower(0.0);
+        if (elapsedTime < 10.0) {
+            return;
+        }
+        else {
+            if (firstTime ) {
+                robot.leftMotor.setPower(0.5);
+                robot.rightMotor.setPower(0.5);
+                firstTime = false;
+            }
+            if(elapsedTime > 11.6) {
+                robot.leftMotor.setPower(0.0);
+                robot.rightMotor.setPower(0.0);
 //            telemetry.addData("Left Position:", "%6d", robot.leftMotor.getCurrentPosition());
 //            telemetry.addData("Right Position:", "%6d", robot.rightMotor.getCurrentPosition());
 //            telemetry.addData("Elapsed Time: ",  "%3.3f", elapsedTime);
-            telemetry.addData("Status 4", "Time's up! stopping!");
+                telemetry.addData("Status 4", "Time's up! stopping!");
+                requestOpModeStop();
+            }
+            else {
+                return;
+            }
+            return;
         }
-
-        return;
 
     }
 

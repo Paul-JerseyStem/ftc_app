@@ -35,6 +35,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 import java.math.*;
 
@@ -76,6 +78,9 @@ public class SwansonsRobots extends OpMode{
          */
         robot.init(hardwareMap);
 
+        robot.leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.leftMotor.setDirection(DcMotor.Direction.FORWARD);
+
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
     }
@@ -92,6 +97,9 @@ public class SwansonsRobots extends OpMode{
      */
     @Override
     public void start() {
+//        robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
+//        robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
+
     }
 
     /*
@@ -103,6 +111,7 @@ public class SwansonsRobots extends OpMode{
         double right;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
+        // set both wheels (left and right) to the same speed, based on "y" deflection.
         left = gamepad1.left_stick_y;
         right = gamepad1.left_stick_y;
 
