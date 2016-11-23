@@ -109,6 +109,7 @@ public class SwansonsRobots extends OpMode{
     public void loop() {
         double left;
         double right;
+        double sensitivity = 0.5;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         // set both wheels (left and right) to the same speed, based on "y" deflection.
@@ -117,11 +118,11 @@ public class SwansonsRobots extends OpMode{
 
         if (Math.abs(gamepad1.left_stick_x) > 0.10) {
             if (gamepad1.left_stick_x > 0) {
-                right = gamepad1.left_stick_x*0.5;
-                left = -gamepad1.left_stick_x*0.5;
+                right = gamepad1.left_stick_x*sensitivity;
+                left = -gamepad1.left_stick_x*sensitivity;
             } else if (gamepad1.left_stick_x < 0){
-                left = -gamepad1.left_stick_x*0.5;
-                right = gamepad1.left_stick_x*0.5;
+                left = -gamepad1.left_stick_x*sensitivity;
+                right = gamepad1.left_stick_x*sensitivity;
             }
         }
         robot.leftMotor.setPower(left);
