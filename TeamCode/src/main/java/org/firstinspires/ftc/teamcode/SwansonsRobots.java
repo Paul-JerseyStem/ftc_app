@@ -78,9 +78,10 @@ public class SwansonsRobots extends OpMode{
          */
         robot.init(hardwareMap);
 
-        robot.leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        robot.leftMotor.setDirection(DcMotor.Direction.FORWARD);
-
+        robot.leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightFrontMotor.setDirection(DcMotor.Direction.REVERSE);
+        robot.leftBackMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightBackMotor.setDirection(DcMotor.Direction.REVERSE);
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
     }
@@ -125,9 +126,10 @@ public class SwansonsRobots extends OpMode{
                 right = gamepad1.left_stick_x*sensitivity;
             }
         }
-        robot.leftMotor.setPower(left);
-        robot.rightMotor.setPower(right);
-
+        robot.leftFrontMotor.setPower(left);
+        robot.rightFrontMotor.setPower(right);
+        robot.leftBackMotor.setPower(left);
+        robot.rightBackMotor.setPower(right);
 //        // Use gamepad left & right Bumpers to open and close the claw
 //        if (gamepad1.right_bumper)
 //            clawOffset += CLAW_SPEED;
