@@ -104,19 +104,19 @@ public class PushbotAutoDriveToLine_Linear extends LinearOpMode {
         }
 
         // Start the robot moving forward, and then begin looking for a white line.
-        robot.leftMotor.setPower(APPROACH_SPEED);
-        robot.rightMotor.setPower(APPROACH_SPEED);
-
-        // run until the white line is seen OR the driver presses STOP;
-        while (opModeIsActive() && (lightSensor.getLightDetected() < WHITE_THRESHOLD)) {
-
-            // Display the light level while we are looking for the line
-            telemetry.addData("Light Level",  lightSensor.getLightDetected());
-            telemetry.update();
-        }
-
-        // Stop all motors
-        robot.leftMotor.setPower(0);
-        robot.rightMotor.setPower(0);
+//        robot.leftMotor.setPower(APPROACH_SPEED);
+//        robot.rightMotor.setPower(APPROACH_SPEED);
+//
+//        // run until the white line is seen OR the driver presses STOP;
+//        while (opModeIsActive() && (lightSensor.getLightDetected() < WHITE_THRESHOLD)) {
+//
+//            // Display the light level while we are looking for the line
+//            telemetry.addData("Light Level",  lightSensor.getLightDetected());
+//            telemetry.update();
+//        }
+//
+//        // Stop all motors
+//        robot.leftMotor.setPower(0);
+//        robot.rightMotor.setPower(0);
     }
 }

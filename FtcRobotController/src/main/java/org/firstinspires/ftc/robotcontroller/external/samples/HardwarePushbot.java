@@ -55,25 +55,39 @@ public class HardwarePushbot
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        leftFrontMotor   = hwMap.dcMotor.get("frontBack_drive");
-        rightFrontMotor  = hwMap.dcMotor.get("leftright_drive");
-        leftBackMotor    = hwMap.dcMotor.get("leftright_drive");
-        rightBackMotor   = hwMap.dcMotor.get("frontBack_drive");
+        leftFrontMotor   = hwMap.dcMotor.get("leftfrontdrive");
+        rightFrontMotor  = hwMap.dcMotor.get("rightfrontdrive");
+        leftBackMotor    = hwMap.dcMotor.get("leftbackdrive");
+        rightBackMotor   = hwMap.dcMotor.get("rightbackdrive");
+        shooterMotor     = hwMap.dcMotor.get("shooter");
+        collectorMotor   = hwMap.dcMotor.get("collector");
+
         //armMotor    = hwMap.dcMotor.get("left_arm");
-        leftFrontMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftFrontMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         leftBackMotor.setDirection(DcMotor.Direction.REVERSE);
-        rightBackMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightBackMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        shooterMotor.setDirection(DcMotor.Direction.FORWARD); // not sure if we need to reverse these just yet
+        collectorMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         leftFrontMotor.setPower(0);
         rightFrontMotor.setPower(0);
+        leftBackMotor.setPower(0);
+        rightBackMotor.setPower(0);
+        shooterMotor.setPower(0);
+        collectorMotor.setPower(0);
+
         //armMotor.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         //armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
