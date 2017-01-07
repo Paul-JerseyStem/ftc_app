@@ -29,14 +29,21 @@ public class BasicAutonomous extends OpMode {
         robot.init(hardwareMap);
 
 
-//        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        robot.leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        robot.rightMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        robot.leftMotor.setPower(0.0);
-        robot.rightMotor.setPower(0.0);
+        robot.rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        robot.leftFrontMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        robot.leftBackMotor.setDirection(DcMotor.Direction.REVERSE);
+        robot.rightBackMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        robot.rightFrontMotor.setPower(0.0);
+        robot.leftBackMotor.setPower(0.0);
+        robot.rightBackMotor.setPower(0.0);
+        robot.leftFrontMotor.setPower(0.0);
 
 //        robot.leftMotor.setTargetPosition(10 * 1440);   // turn 10 rotations
 //        robot.rightMotor.setTargetPosition(10 * 1440);  // turn 10 rotations
@@ -58,9 +65,6 @@ public class BasicAutonomous extends OpMode {
 
         matchStartTime = getRuntime();  // used to decide if we are running more than 10 seconds.
 
-        robot.leftMotor.setPower(0.0);
-        robot.rightMotor.setPower(0.0);
-
         return;
 
     }
@@ -72,21 +76,21 @@ public class BasicAutonomous extends OpMode {
 
         elapsedTime = getRuntime() - matchStartTime;
 
-        if (elapsedTime < 10.0) {
+        if (elapsedTime < 12.0) {
             return;
         }
         else {
             if (firstTime ) {
-                robot.leftMotor.setPower(0.5);
-                robot.rightMotor.setPower(0.5);
+                robot.rightFrontMotor.setPower(-0.9);
+                robot.leftBackMotor.setPower(-0.9);
                 firstTime = false;
             }
-            if(elapsedTime > 11.6) {
-                robot.leftMotor.setPower(0.0);
-                robot.rightMotor.setPower(0.0);
-//            telemetry.addData("Left Position:", "%6d", robot.leftMotor.getCurrentPosition());
-//            telemetry.addData("Right Position:", "%6d", robot.rightMotor.getCurrentPosition());
-//            telemetry.addData("Elapsed Time: ",  "%3.3f", elapsedTime);
+            if(elapsedTime > 14.5) {
+                robot.rightFrontMotor.setPower(0.0);
+                robot.leftBackMotor.setPower(0.0);
+//              telemetry.addData("Left Position:", "%6d", robot.leftMotor.getCurrentPosition());
+//              telemetry.addData("Right Position:", "%6d", robot.rightMotor.getCurrentPosition());
+//              telemetry.addData("Elapsed Time: ",  "%3.3f", elapsedTime);
                 telemetry.addData("Status 4", "Time's up! stopping!");
                 requestOpModeStop();
             }
