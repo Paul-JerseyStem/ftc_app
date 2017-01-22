@@ -58,7 +58,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @TeleOp(name="Swanson's Robots", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class SwansonsRobots extends OpMode {
 
     /* Declare OpMode members. */

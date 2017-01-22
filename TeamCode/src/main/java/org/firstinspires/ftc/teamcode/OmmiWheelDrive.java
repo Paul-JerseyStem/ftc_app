@@ -23,6 +23,8 @@ public class OmmiWheelDrive extends OpMode {
     double collector;
     double shooter;
     double sensitivity = 0.5;
+//    private boolean left_bumper;
+//    private boolean right_bumper;
 
     @Override
     public void init() {
@@ -49,6 +51,7 @@ public class OmmiWheelDrive extends OpMode {
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");
+
 
     }
 
@@ -91,20 +94,20 @@ public class OmmiWheelDrive extends OpMode {
         if (gamepad1.dpad_right)
         {
             rightBack = -.5;
-            rightFront = -.5;
+            rightFront = .5;
             leftFront = .5;
-            leftBack = .5;
+            leftBack = -.5;
         }
 
         if(gamepad1.dpad_left)
         {
             rightBack = .5;
-            rightFront = .5;
+            rightFront = -.5;
             leftFront = -.5;
-            leftBack = -.5;
+            leftBack = .5;
         }
 
-        if (gamepad1.dpad_up)
+        if (gamepad1.right_bumper)
         {
             collector = 1.0;
         }
@@ -112,7 +115,7 @@ public class OmmiWheelDrive extends OpMode {
             collector = 0.0;
         }
 
-        if (gamepad1.dpad_down)
+        if (gamepad1.left_bumper)
         {
             shooter = 1.0;
         }
@@ -126,8 +129,9 @@ public class OmmiWheelDrive extends OpMode {
         robot.leftBackMotor.setPower(-leftBack);      // could reverse direction with -
         robot.rightBackMotor.setPower(rightBack);
 
-        robot.collectorMotor.setPower(collector);
-        robot.shooterMotor.setPower(shooter);
+        robot.collectorMotor.setPower(collector); // collector
+
+        robot.shooterMotor.setPower(shooter);  //shooter
 
         telemetry.addData("right front", "%.2f", rightFront);
         telemetry.addData("right back", "%.2f", rightBack);
@@ -146,21 +150,4 @@ public class OmmiWheelDrive extends OpMode {
 
     }
 
-    }
-
-//            if (gamepad1.right_stick_x > 0) {
-//                rightBack = gamepad1.right_stick_x * sensitivity;
-//                leftFront = gamepad1.right_stick_x * sensitivity;
-//            }
-//            else if (gamepad1.right_stick_x < 0) {
-//                rightBack = gamepad1.right_stick_x * sensitivity;
-//                leftFront = gamepad1.right_stick_x * sensitivity;
-//            }
-//            if (gamepad1.left_stick_y > 0) {
-//                rightFront = gamepad1.left_stick_y * sensitivity;
-//                leftBack = gamepad1.left_stick_y * sensitivity;
-//            }
-//            else if (gamepad1.left_stick_y < 0){
-//                rightFront = gamepad1.left_stick_y * sensitivity;
-//                leftBack = gamepad1.left_stick_y * sensitivity;
-//            }
+}
