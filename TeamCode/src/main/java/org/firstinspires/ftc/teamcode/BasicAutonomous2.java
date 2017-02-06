@@ -15,16 +15,15 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 
-@Autonomous(name="One Shot Autonomous", group="Dunshire Opmode")
-public class BasicAutonomous extends OpMode {
+@Autonomous(name="Auto Long Side", group="Dunshire Opmode")
+public class BasicAutonomous2 extends OpMode {
 
     private double matchStartTime;
     boolean firstTime = true;
-    int paddlePosition, targetPaddlePostion;
 
     HardwarePushbot robot = new HardwarePushbot();
 
-    enum RobotStates {AUTONOMOUS_START, AUTONOMOUS_SHOOT, AUTONOMOUS_PUSH_BALL, AUTONOMOUS_PARK };
+    enum RobotStates {AUTONOMOUS_START, AUTONOMOUS_SHOOT, AUTONOMOUS_SHOOT_2, AUTONOMOUS_RELOAD, AUTONOMOUS_PUSH_BALL, AUTONOMOUS_SPIN, AUTONOMOUS_PARK };
 
     RobotStates robotState;
 
@@ -44,13 +43,6 @@ public class BasicAutonomous extends OpMode {
         robot.leftFrontMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         robot.leftBackMotor.setDirection(DcMotor.Direction.REVERSE);
         robot.rightBackMotor.setDirection(DcMotor.Direction.REVERSE);
-
-
-        robot.shooterMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));   // Shooter should go through 1 turn
-
-        paddlePosition = robot.shooterMotor.getCurrentPosition();  // remember the start position
-        targetPaddlePostion = paddlePosition + 1440 + 1440 + 360;
-        robot.shooterMotor.setTargetPosition(targetPaddlePostion);
 
         robot.collectorMotor.setDirection(DcMotor.Direction.FORWARD);
         robot.shooterMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -102,7 +94,7 @@ public class BasicAutonomous extends OpMode {
                 robot.rightFrontMotor.setPower(0.7);
                 robot.leftBackMotor.setPower(0.7);
                 elapsedTime = getRuntime() - matchStartTime;
-                if (elapsedTime > 0.75) {
+                if (elapsedTime > 1.0) {
                     robot.rightFrontMotor.setPower(0.0);
                     robot.leftBackMotor.setPower(0.0);
                     robotState = RobotStates.AUTONOMOUS_SHOOT;
@@ -115,23 +107,64 @@ public class BasicAutonomous extends OpMode {
 
                 robot.shooterMotor.setPower(1.0);
                 elapsedTime = getRuntime() - matchStartTime;
+                if (elapsedTime > 2.3) {
+                    robot.shooterMotor.setPower(0.0);
+                    robotState = RobotStates.AUTONOMOUS_RELOAD;
+                    break;
+                } else {
+                    break;
+                }
 
-                if (robot.shooterMotor.getCurrentPosition() >= robot.shooterMotor.getTargetPosition()) {
 
-                    //elapsedTime > 2.75
+            case AUTONOMOUS_RELOAD:
+                robot.collectorMotor.setPower(0.8);
+                elapsedTime = getRuntime() - matchStartTime;
+                if (elapsedTime > 4.9) {
+                    robot.collectorMotor.setPower(0.0);
+                    robotState = RobotStates.AUTONOMOUS_SHOOT_2;
+                    break;
+                } else {
+                    break;
+                }
+
+            case AUTONOMOUS_SHOOT_2:
+
+                robot.shooterMotor.setPower(1.0);
+                elapsedTime = getRuntime() - matchStartTime;
+                if (elapsedTime > 6.4) {
                     robot.shooterMotor.setPower(0.0);
                     robotState = RobotStates.AUTONOMOUS_PUSH_BALL;
                     break;
                 } else {
                     break;
                 }
+
             case AUTONOMOUS_PUSH_BALL:
 
                 robot.rightFrontMotor.setPower(0.9);
                 robot.leftBackMotor.setPower(0.9);
 
                 elapsedTime = getRuntime() - matchStartTime;
-                if (elapsedTime > 3.1) {
+                if (elapsedTime > 7.9) {
+                    robot.rightFrontMotor.setPower(0.0);
+                    robot.leftBackMotor.setPower(0.0);
+                    robotState = RobotStates.AUTONOMOUS_SPIN;
+                    break;
+                } else {
+                    break;
+                }
+
+            case AUTONOMOUS_SPIN:
+
+                telemetry.addData("Status: ", "Spin Left!");
+
+                robot.rightBackMotor.setPower(0.5);
+                robot.rightFrontMotor.setPower(-0.5);
+                robot.leftBackMotor.setPower(-0.5);
+                robot.leftFrontMotor.setPower(0.5);
+
+                elapsedTime = getRuntime() - matchStartTime;
+                if (elapsedTime > 8.2) {
                     robot.rightFrontMotor.setPower(0.0);
                     robot.leftBackMotor.setPower(0.0);
                     robotState = RobotStates.AUTONOMOUS_PARK;
@@ -139,6 +172,7 @@ public class BasicAutonomous extends OpMode {
                 } else {
                     break;
                 }
+
             case AUTONOMOUS_PARK:
 
                 robot.shooterMotor.setPower(0.0);
@@ -146,7 +180,6 @@ public class BasicAutonomous extends OpMode {
                 robot.leftBackMotor.setPower(0.0);
                 robot.leftFrontMotor.setPower(0.0);
                 robot.rightBackMotor.setPower(0.0);
-
 
                 telemetry.addData("Status: ", "Time's up! stopping!");
                 requestOpModeStop();
