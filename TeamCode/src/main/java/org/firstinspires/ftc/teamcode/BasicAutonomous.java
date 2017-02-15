@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -16,11 +17,12 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
 @Autonomous(name="One Shot Autonomous", group="Dunshire Opmode")
+@Disabled
 public class BasicAutonomous extends OpMode {
 
     private double matchStartTime;
     boolean firstTime = true;
-    int paddlePosition, targetPaddlePostion;
+    int paddlePosition, targetPaddlePosition;
 
     HardwarePushbot robot = new HardwarePushbot();
 
@@ -49,8 +51,8 @@ public class BasicAutonomous extends OpMode {
         robot.shooterMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));   // Shooter should go through 1 turn
 
         paddlePosition = robot.shooterMotor.getCurrentPosition();  // remember the start position
-        targetPaddlePostion = paddlePosition + 1440 + 1440 + 360;
-        robot.shooterMotor.setTargetPosition(targetPaddlePostion);
+        targetPaddlePosition = paddlePosition + 1440 + 1440 + 360;
+        robot.shooterMotor.setTargetPosition(targetPaddlePosition);
 
         robot.collectorMotor.setDirection(DcMotor.Direction.FORWARD);
         robot.shooterMotor.setDirection(DcMotor.Direction.FORWARD);
